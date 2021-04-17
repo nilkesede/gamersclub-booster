@@ -1,0 +1,18 @@
+name: Bundle, zip and release on Github
+on:
+  push:
+    branches:
+      - feature/ci-changelog
+jobs:
+  publish:
+    name: Test changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
