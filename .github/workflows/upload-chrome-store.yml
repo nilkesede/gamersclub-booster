@@ -1,7 +1,12 @@
 name: Download release and upload to Chrome Store
 on:
-  release:
-    types: [published]
+ workflow_dispatch:
+ release:
+    types:
+      - published
+      - created
+      - edited
+      - released
 jobs:
   publish:
     name: Release to Chrome Store
@@ -17,7 +22,7 @@ jobs:
           token: ${{ secrets.YOUR_TOKEN }}
 
       - name: Upload to Chrome Store
-        uses: Klemensas/chrome-extension-upload-action@$VERSION
+        uses: Klemensas/chrome-extension-upload-action@master
         with:
           app-id: ${{ secrets.CHROME_STORE_APP_ID }}
           refresh-token: ${{ secrets.CHROME_STORE_REFRESH_TOKEN }}
