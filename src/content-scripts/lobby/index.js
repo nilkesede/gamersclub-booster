@@ -25,7 +25,7 @@ const initLobbyPartida = async () => {
 
 const initLobby = async () => {
   criarObserver( '.lobby,.ranking', readySound );
-  criarObserver( '.lobby,.ranking', autoAceitarReady );
+  criarObserver( '.lobby,.ranking', autoReady );
   criarObserver( '#lobbyContent', fixLobbyMenu );
   criarObserver( '.lobby,.ranking', autoAgreeRankedRules );
   criarObserver( '#matchMainContainer', matchInfo );
