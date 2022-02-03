@@ -22,7 +22,7 @@ export function addAutoCompleteButton() {
   }
 }
 
-function adicionarBotaoCancelar() {
+function addCancelButton() {
   $( '#autoCompleteBtn' )
     .css( { 'background-color': 'red', 'border-radius': '4px' } )
     .text( 'Procurando Complete...' )
@@ -36,8 +36,8 @@ function addListeners() {
       addAutoCompleteButton();
     } else { // Se não estiver buscando ainda
       if ( !$( '#SidebarSala' ).length ) { // Se não estiver em lobby
-        intervalerAutoComplete();
-        adicionarBotaoCancelar();
+        autoCompleteIntervaler();
+        addCancelButton();
       } else { // Se estiver em lobby e tentar clicar no botão de complete
         alertaMsg( 'Você está em um lobby! Saia para buscar por complete!' );
       }
@@ -45,7 +45,7 @@ function addListeners() {
   } );
 }
 
-function intervalerAutoComplete() {
+function autoCompleteIntervaler() {
   intervalId = setInterval( function () {
     if ( !$( '#SidebarSala' ).length ) { // Se não estiver em lobby ( acontece quando cria lobby e já está buscando complete )
       interval = randomIntFromInterval( 750, 4750 ); // Escolhe um novo intervalo aleatório entre 1s e 5s
