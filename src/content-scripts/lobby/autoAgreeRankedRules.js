@@ -1,6 +1,6 @@
-export const autoConcordarTermosRanked = mutations =>
-  chrome.storage.sync.get( [ 'autoConcordarTermosRanked' ], function ( result ) {
-    if ( result.autoConcordarTermosRanked ) {
+export const autoAgreeRankedRules = mutations =>
+  chrome.storage.sync.get( [ 'autoAgreeRankedRules' ], function ( result ) {
+    if ( result.autoAgreeRankedRules ) {
       $.each( mutations, ( i, mutation ) => {
         const addedNodes = $( mutation.addedNodes );
         const selector = '.RankedRules__button';

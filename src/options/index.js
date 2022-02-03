@@ -89,7 +89,7 @@ function carregarTraducao( language = 'pt' ) {
   } );
 }
 function popularAudioOptions() {
-  for ( const selectId of [ 'somReady' ] ) {
+  for ( const selectId of [ 'readySound' ] ) {
     const select = document.getElementById( selectId );
     for ( const index in audios ) {
       select.options[select.options.length] = new Option( audios[index], index );
@@ -210,11 +210,11 @@ function adicionarListenersSons() {
       chrome.storage.sync.set( { [config]: this.value }, function () {} );
     } );
   }
-  document.getElementById( 'testarSomReady' ).addEventListener( 'click', function () {
+  document.getElementById( 'testarreadySound' ).addEventListener( 'click', function () {
     const som =
-      document.getElementById( 'somReady' ).value === 'custom' ?
-        document.getElementById( 'customSomReady' ).value :
-        document.getElementById( 'somReady' ).value;
+      document.getElementById( 'readySound' ).value === 'custom' ?
+        document.getElementById( 'customreadySound' ).value :
+        document.getElementById( 'readySound' ).value;
     const audio = new Audio( som );
     audio.volume = document.getElementById( 'volume' ).value / 100;
     audio.play();

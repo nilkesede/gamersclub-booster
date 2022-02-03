@@ -3,7 +3,7 @@ import { levelColor } from '../../lib/constants';
 let title = null;
 let kdr = null;
 
-export const mostrarKdr = mutations => {
+export const showKdr = mutations => {
   $.each( mutations, async ( _, mutation ) => {
     $( mutation.addedNodes )
       .find( 'div.sala-lineup-player' ).addBack( 'div.sala-lineup-player' )

@@ -1,6 +1,6 @@
 import { alertaMsg } from '../../lib/messageAlerts';
 
-export const listaBloqueio = mutations =>
+export const blockList = mutations =>
   chrome.storage.sync.get( [ 'blockList' ], function ( ) {
     const prefix = '<a style="color: yellow;">[ Lista de Bloqueio ] - </a>';
     mutations.forEach( async mutation => {

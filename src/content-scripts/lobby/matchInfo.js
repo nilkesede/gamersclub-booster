@@ -2,7 +2,7 @@ import { sendMatchInfo } from '../../lib/discord';
 import { GC_URL } from '../../lib/constants';
 import axios from 'axios';
 
-export const partidaInfo = mutations => {
+export const matchInfo = mutations => {
   chrome.storage.sync.get( [ 'webhookLink', 'enviarPartida' ], function ( result ) {
     if ( result.webhookLink && result.webhookLink.length > 0 ) {
       $.each( mutations, async ( _i, mutation ) => {

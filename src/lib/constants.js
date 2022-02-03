@@ -49,8 +49,8 @@ export const levelColor = [
 export const features = [
   'autoCopiarIp',
   'autoAceitarReady',
-  'autoFixarMenuLobby',
-  'autoConcordarTermosRanked',
+  'fixLobbyMenu',
+  'autoAgreeRankedRules',
   'mostrarLevelProgress',
   'enviarLinkLobby',
   'enviarPartida',
@@ -94,7 +94,7 @@ export const preVetosMapas = [
     codigo: 12
   }
 ];
-export const configValues = [ 'somReady', 'volume', 'customSomReady' ];
+export const configValues = [ 'readySound', 'volume', 'customreadySound' ];
 export const paginas = [ 'geral', 'mapas', 'lobby', 'contato', 'sobre', 'sons', 'integracoes', 'blocklist', 'backup' ];
 export const audios = {
   'undefined': 'Nenhum',

@@ -3,9 +3,9 @@ import { GC_URL, isFirefox } from '../../lib/constants';
 import { alertaMsg } from '../../lib/messageAlerts';
 import axios from 'axios';
 
-let intervalCriarLobby = null;
+let lobbyCreationInterval = null;
 
-export function adicionarBotaoForcarCriarLobby() {
+export function addCreateLobbyButton() {
   if ( !$( '#criarLobbyBtn' ).length ) {
     $( '#gcbooster_botoes' ).append(
       $( '<button/>', {
@@ -25,7 +25,7 @@ export function adicionarBotaoForcarCriarLobby() {
   }
 }
 
-function adicionarBotaoCancelarCriarLobby() {
+function addCancelButton() {
   $( '#criarLobbyBtn' )
     .css( { 'background-color': 'red', 'border-radius': '4px' } )
     .text( 'Cancelar Criação...' )
@@ -35,17 +35,17 @@ function adicionarBotaoCancelarCriarLobby() {
 function addListeners() {
   $( '#criarLobbyBtn' ).on( 'click', function () {
     if ( $( '#criarLobbyBtn' ).hasClass( 'Cancelar' ) ) {
-      clearInterval( intervalCriarLobby );
-      adicionarBotaoForcarCriarLobby();
+      clearInterval( lobbyCreationInterval );
+      addCreateLobbyButton();
     } else {
-      intervalCriarLobby = intervalerCriacaoLobby();
-      adicionarBotaoCancelarCriarLobby();
+      lobbyCreationInterval = lobbyCreationIntervaler();
+      addCancelButton();
     }
   } );
 }
 
 //Criar lobby: https://github.com/LouisRiverstone/gamersclub-lobby_waiter/ com as modificações por causa do layout novo
-function intervalerCriacaoLobby() {
+function lobbyCreationIntervaler() {
   return setInterval( async () => {
     if ( !$( '.sidebar-titulo.sidebar-sala-titulo' ).text().length ) {
       const lobbies = $( '.LobbiesInfo__expanded > .Tag > .Tag__tagLabel' )[0].innerText.split( '/' )[1];
@@ -67,10 +67,10 @@ function intervalerCriacaoLobby() {
             type: 'newRoom',
             vetoes: preVetos
           };
-          const criarPost = await axios.post( `https://${ GC_URL }/lobbyBeta/createLobby`, postData );
-          if ( criarPost.data.success ) {
-            const loadLobby = await axios.post( `https://${ GC_URL }/lobbyBeta/openRoom` );
-            if ( loadLobby.data.success ) {
+          const createLobbyResponse = await axios.post( `https://${ GC_URL }/lobbyBeta/createLobby`, postData );
+          if ( createLobbyResponse.data.success ) {
+            const openRoomResponse = await axios.post( `https://${ GC_URL }/lobbyBeta/openRoom` );
+            if ( openRoomResponse.data.success ) {
               if ( isFirefox ) {
                 window.wrappedJSObject.openLobby();
               } else {
@@ -78,23 +78,23 @@ function intervalerCriacaoLobby() {
               }
               setTimeout( async () => {
                 //Lobby criada com sucesso e entrado na janela da lobby já
-                adicionarBotaoForcarCriarLobby();
-                clearInterval( intervalCriarLobby );
+                addCreateLobbyButton();
+                clearInterval( lobbyCreationInterval );
               }, 1000 );
             }
           } else {
-            if ( criarPost.data.message.includes( 'Anti-cheat' ) || criarPost.data.message.includes( 'banned' ) ) {
-              clearInterval( intervalCriarLobby );
-              adicionarBotaoForcarCriarLobby();
-              alertaMsg( criarPost.data.message );
+            if ( createLobbyResponse.data.message.includes( 'Anti-cheat' ) || createLobbyResponse.data.message.includes( 'banned' ) ) {
+              clearInterval( lobbyCreationInterval );
+              addCreateLobbyButton();
+              alertaMsg( createLobbyResponse.data.message );
               return;
             }
           }
         } );
       }
     } else {
-      adicionarBotaoForcarCriarLobby();
-      clearInterval( intervalCriarLobby );
+      addCreateLobbyButton();
+      clearInterval( lobbyCreationInterval );
     }
   }, 500 );
 }

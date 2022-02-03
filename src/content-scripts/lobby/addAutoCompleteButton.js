@@ -3,7 +3,7 @@ import { alertaMsg } from '../../lib/messageAlerts';
 let interval = 1000;
 let intervalId;
 
-export function adicionarBotaoAutoComplete() {
+export function addAutoCompleteButton() {
   if ( !$( '#autoCompleteBtn' ).length ) { // Se precisa criar o botão e adicionar na página
     $( '#gcbooster_botoes' )
       .append( $( '<button/>', {
@@ -33,7 +33,7 @@ function addListeners() {
   $( '#autoCompleteBtn' ).on( 'click', function () {
     if ( $( '#autoCompleteBtn' ).hasClass( 'Cancelar' ) ) { // Se já estiver buscando
       clearInterval( intervalId );
-      adicionarBotaoAutoComplete();
+      addAutoCompleteButton();
     } else { // Se não estiver buscando ainda
       if ( !$( '#SidebarSala' ).length ) { // Se não estiver em lobby
         intervalerAutoComplete();
@@ -57,7 +57,7 @@ function intervalerAutoComplete() {
       }
     } else {
       clearInterval( intervalId );
-      adicionarBotaoAutoComplete();
+      addAutoCompleteButton();
     }
   }, 250 );
 }

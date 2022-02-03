@@ -1,15 +1,15 @@
-import { autoFixarMenuLobby } from './autoFixarMenuLobby';
-import { autoAceitarReady, autoAceitarReadySetInterval } from './autoAceitarReady';
-import { somReady } from './somReady';
-import { autoConcordarTermosRanked } from './autoConcordarTermosRanked';
-import { partidaInfo } from './partidaInfo';
+import { fixLobbyMenu } from './fixLobbyMenu';
+import { autoReady } from './autoReady';
+import { readySound } from './readySound';
+import { autoAgreeRankedRules } from './autoAgreeRankedRules';
+import { matchInfo } from './matchInfo';
 import { lobbyLink } from './lobbyLink';
-import { listaBloqueio } from './listaBloqueio';
-import { adicionarBotaoForcarCriarLobby } from './botaoForcarCriarLobby';
-import { initListaBloqueio } from './botaoListaBloqueio';
-import { adicionarBotaoAutoComplete } from './botaoAutoComplete';
-import { addCabecalho } from './addCabecalho';
-import { mostrarKdr } from './mostrarKdr';
+import { blockList } from './blockList';
+import { addCreateLobbyButton } from './addCreateLobbyButton';
+import { addBlockListButton } from './addBlockListButton';
+import { addAutoCompleteButton } from './addAutoCompleteButton';
+import { addHeader } from './addHeader';
+import { showKdr } from './showKdr';
 
 chrome.storage.sync.get( null, function ( _result ) {
   if ( window.location.pathname.includes( 'partida' ) || window.location.pathname.includes( '/match/' ) ) {
@@ -20,29 +20,29 @@ chrome.storage.sync.get( null, function ( _result ) {
 } );
 
 const initLobbyPartida = async () => {
-  initListaBloqueio();
+  addBlockListButton();
 };
 
 const initLobby = async () => {
-  criarObserver( '.lobby,.ranking', somReady );
+  criarObserver( '.lobby,.ranking', readySound );
   criarObserver( '.lobby,.ranking', autoAceitarReady );
-  criarObserver( '#lobbyContent', autoFixarMenuLobby );
-  criarObserver( '.lobby,.ranking', autoConcordarTermosRanked );
-  criarObserver( '#matchMainContainer', partidaInfo );
+  criarObserver( '#lobbyContent', fixLobbyMenu );
+  criarObserver( '.lobby,.ranking', autoAgreeRankedRules );
+  criarObserver( '#matchMainContainer', matchInfo );
   criarObserver( '#lobbyContent', lobbyLink );
-  criarObserver( '#lobbyContent', listaBloqueio );
-  criarObserver( '.list-avaliable-teams', mostrarKdr );
+  criarObserver( '#lobbyContent', blockList );
+  criarObserver( '.list-avaliable-teams', showKdr );
 
   // Cria seção de cabeçalho para botões da extensão
-  addCabecalho();
+  addHeader();
   // Clicar automáticamente no Ready, temporário.
-  autoAceitarReadySetInterval();
+  autoReady();
   // Feature para aceitar complete automatico
-  adicionarBotaoAutoComplete();
+  addAutoCompleteButton();
   //Feature pra criar lobby caso full
-  adicionarBotaoForcarCriarLobby();
+  addCreateLobbyButton();
   // Feature para mostrar kdr dos players
-  mostrarKdr();
+  showKdr();
 };
 
 const criarObserver = ( seletor, exec ) => {

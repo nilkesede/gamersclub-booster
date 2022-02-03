@@ -1,8 +1,8 @@
 import { retrieveWindowVariables } from '../../lib/dom';
 
-export const autoFixarMenuLobby = mutations =>
-  chrome.storage.sync.get( [ 'autoFixarMenuLobby' ], function ( result ) {
-    if ( result.autoFixarMenuLobby ) {
+export const fixLobbyMenu = mutations =>
+  chrome.storage.sync.get( [ 'fixLobbyMenu' ], function ( result ) {
+    if ( result.fixLobbyMenu ) {
       const windowVariables = retrieveWindowVariables( [ 'ISSUBSCRIBER' ] );
       const isSubscriber = windowVariables.ISSUBSCRIBER;
       mutations.forEach( mutation => {

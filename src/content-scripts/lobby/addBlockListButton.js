@@ -1,17 +1,17 @@
 import { adicionarNaLista, removerDaLista } from '../../lib/blockList';
 import { alertaMsg } from '../../lib/messageAlerts';
 
-export async function initListaBloqueio() {
+export async function addBlockListButton() {
   chrome.storage.sync.get( [ 'blockList' ], async function ( result ) {
     if ( !result.blockList ) {
-      chrome.storage.sync.set( { blockList: [] }, async function ( ) { await initBotaoListaBloqueio( ); } );
+      chrome.storage.sync.set( { blockList: [] }, async function ( ) { await createButton( ); } );
     } else {
-      await initBotaoListaBloqueio();
+      await createButton();
     }
   } );
 }
 
-async function initBotaoListaBloqueio() {
+async function createButton() {
   //Quando iniciar, adicionar os botoes da lista de bloqueio
   const playerSelector = $( '.tableMatch__leftColumn' );
   for ( let i = 0; i < playerSelector.length; i++ ) {
