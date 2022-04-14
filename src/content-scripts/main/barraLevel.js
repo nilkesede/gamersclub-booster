@@ -13,13 +13,15 @@ const grabPlayerLastMatch = async matchUrl => {
   const data = await response.json();
 
   const lastMatchIndex = data.lastMatches.length - 1;
+  const lastMatch = data.lastMatches[lastMatchIndex] || {};
+
   const playerInfo = [];
   playerInfo['name'] = data.playerInfo ? data.playerInfo.nick : undefined;
   playerInfo['level'] = parseInt( data.playerInfo.level );
   playerInfo['currentRating'] = data.playerInfo.rating;
-  playerInfo['matchId'] = data.lastMatches[lastMatchIndex].id;
-  playerInfo['rating_points'] = data.lastMatches[lastMatchIndex].ratingDiff.toString();
-  playerInfo['map_name'] = data.lastMatches[lastMatchIndex].map;
+  playerInfo['matchId'] = lastMatch.id;
+  playerInfo['rating_points'] = ( lastMatch.ratingDiff || '0' ).toString();
+  playerInfo['map_name'] = lastMatch.map;
 
   return playerInfo;
 };
